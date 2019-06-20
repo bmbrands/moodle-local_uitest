@@ -5,7 +5,7 @@
 @import "../../../theme/boost/scss/bootstrap/functions";
 @import "../../../theme/boost/scss/bootstrap/variables";
 
-$message-send-bg: $secondary !default;
+$message-send-bg: $gray-300 !default;
 $message-send-color: color-yiq($message-send-bg) !default;
 $message-send-time-color: mix($message-send-color, $message-send-bg, 100%) !default;
 $message-received-bg: $body-bg !default;

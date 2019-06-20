@@ -1,19 +1,12 @@
 @import "../../../theme/boost/scss/bootstrap/functions";
 @import "../../../theme/boost/scss/bootstrap/variables";
 
-$nabvar-bg-color: $dark;
+$nabvar-bg-color: $dark !default;
 
 @import "../../../theme/boost/scss/bootstrap/mixins/hover";
 @import "../../../theme/boost/scss/bootstrap/mixins/border-radius";
 @import "../../../theme/boost/scss/bootstrap/mixins/breakpoints";
 @import "../../../theme/boost/scss/bootstrap/navbar";
-
-.error-highlight {
-    border: 1px dotted red;
-}
-.warning-highlight {
-    border: 1px dotted orange;
-}
 
 // White links against a dark background
 .navbar-bootswatch {

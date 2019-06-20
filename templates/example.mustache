@@ -1,0 +1,26 @@
+
+{{>local_uitest/intro}}
+
+<hr>
+
+<!-- Make sure the CSS you create is injected in this template !-->
+{{>local_uitest/injectcss}}
+
+<div class="row">
+    <div id="check-wcag" class="col-md-4">
+        <button class="btn btn-primary rounded mb-2"> Click to TEST WCAG </button>
+        <h3>YOUR CUSTOM TEMPLATE HERE</h3>
+
+        <p>If you want to add wcag checking make sure the parent container uses div id="wcag-check"</p>
+    </div>
+    <div class="col-md-4">
+        {{<local_uitest/templateinfo}}
+            {{$info}}
+            What this test is about
+            {{/info}}
+        {{/local_uitest/templateinfo}}
+    </div>
+    <div class="col-md-4">
+        {{>local_uitest/cssoutput}}
+    </div>
+</div>

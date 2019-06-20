@@ -1,3 +1,7 @@
+{{>local_uitest/intro}}
+<hr>
+{{>local_uitest/injectcss}}
+
 <nav id="check-wcag" class="mt-5 navbar navbar-bootswatch navbar-wcag navbar-expand moodle-has-zindex">
     <a class="navbar-brand has-logo" href="http://nucky.fritz.box/stable_master"><span class="logo d-none d-sm-inline"><img alt="moodle" src="http://nucky.fritz.box/stable_master/pluginfile.php/1/core_admin/logocompact/100x100/1560779934/theGreenGroup.png"></span> <span class="site-name d-none d-md-inline">moodle</span></a>
     <ul class="navbar-nav d-none d-md-flex">
@@ -94,49 +98,20 @@
     </ul><!-- search_box -->
 </nav>
 
-    <div class="results my-5 ml-2">
-        <div class="intro card" style="width: 400px">
+<div class="row mt-5">
+    <div class="col-md-4">
+        {{<local_uitest/templateinfo}}
+            {{$info}}
+            <h2>Testing the Inverse navbar</h2>
 
-            <div class="card-body small">
-                <h2>The message speach bubbles</h2>
-
-                <div class="errors">
-
-                </div>
-                <div class="warnings mb-3">
-
-                </div>
-
-                <p>This test is written to try different shades of gray for the messaging UI. The objective is to make sure it renderes well on different themes.</p>
-                <p>The colours for this UI are determined by the $nabvar-bg-color variable in theme/boost/scss/bootstrap/_variables.scss</p>
-
-                <p>In Moodle we override this variable to be $primare (for the classic theme), custom themes might use very different colours. Test this using a url like:
-
-                    <b>http://yourmoodle.com/local/uitest/index.php?template=navbar&primary=%23000</b> </p>
-
-                <p>Your options are %23 = # folowed by any hex code</p>
-
-                <p>Note, when clicking on the UI a JS module checks the WCAG complience. Open the JavaScript console for more info.</p>
-            </div>
-        </div>
+            Try testing <b>$nabvar-bg-color</b>
+            {{/info}}
+        {{/local_uitest/templateinfo}}
     </div>
-
-<h2>Input CSS</h2>
-
-<pre>
-    {{{inputcss}}}
-</pre>
-
-<h2>Output CSS</h2>
-<div class="outputcss" style="height: 300px; overflow-y: scroll">
-    <pre>
-        {{{outputcss}}}
-    </pre>
+    <div class="col-md-4">
+        {{>local_uitest/cssoutput}}
+    </div>
 </div>
-
-<style>
-    {{{outputcss}}}
-</style>
 
 {{#js}}
 require(
