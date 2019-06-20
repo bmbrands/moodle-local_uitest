@@ -1,0 +1,43 @@
+<h2>Input CSS</h2>
+
+<pre>
+	{{{inputcss}}}
+</pre>
+
+<h2>Output CSS</h2>
+<div class="outputcss" style="height: 300px; overflow-y: scroll">
+	<pre>
+		{{{outputcss}}}
+	</pre>
+</div>
+
+<style>
+	{{{outputcss}}}
+</style>
+
+<button type="button" class="btn btn-secondary hastooltip" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+  Tooltip on top
+</button>
+<button type="button" class="btn btn-secondary hastooltip" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
+  Tooltip on right
+</button>
+<button type="button" class="btn btn-secondary hastooltip" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
+  Tooltip on bottom
+</button>
+<button type="button" class="btn btn-secondary hastooltip" data-toggle="tooltip" data-placement="left" title="Tooltip on left">
+  Tooltip on left
+</button>
+{{#js}}
+require(
+[
+    'jquery',
+    'local_uitest/main',
+],
+function(
+    $,
+    Main
+) {
+    var root = $('.check-wcag');
+    Main.init(root);
+});
+{{/js}}

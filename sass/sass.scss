@@ -1,0 +1,32 @@
+// stylelint-disable
+@import "../../../theme/boost/scss/bootstrap/functions";
+@import "../../../theme/boost/scss/bootstrap/variables";
+@import "../../../theme/boost/scss/bootstrap/mixins/hover";
+
+.badge {
+  display: inline-block;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+
+
+  // Hack in Bootstrap scss to prevent scss parse errrors.
+  &[href] {
+    @include hover-focus {
+      text-decoration: none;
+    }
+  }
+
+  // Empty badges collapse automatically
+  &:empty {
+    display: none;
+  }
+}
+
+a.badge {
+  @include hover-focus {
+    text-decoration: none;
+  }
+}
+// stylelint-enable
