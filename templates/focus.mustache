@@ -1,0 +1,70 @@
+
+{{>local_uitest/intro}}
+
+<hr>
+
+<!-- Make sure the CSS you create is injected in this template !-->
+{{>local_uitest/injectcss}}
+
+<div class="row">
+    <div id="check-wcag" class="col-md-12 mt-3">
+        <div id="yui_3_17_2_1_1582186555068_25">
+            <p class="h1"><a href="#">h1. heading</a></p>
+            <p class="h2">h2. heading</p>
+            <p class="h3">h3. heading</p>
+            <p class="h4">h4. heading</p>
+            <p class="h5">h5. heading</p>
+            <p class="h6">h6. heading</p>
+
+            <p>You can use the mark tag to <mark>highlight</mark> text.</p>
+            <p><del>This line of text is meant to be treated as deleted text.</del></p>
+            <p><s>This line of text is meant to be treated as no longer accurate.</s></p>
+            <p><ins>This line of text is meant to be treated as an addition to the document.</ins></p>
+            <p><u>This line of text will render as underlined</u></p>
+            <p><small>This line of text is meant to be treated as fine print.</small></p>
+            <p><strong>This line rendered as bold text.</strong></p>
+<p><em>This line rendered as italicized text.</em></p>
+
+The European languages are <a href="#">members</a> of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone
+realizes why a new <a>common language </a> would be desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the
+resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an
+English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is.<a href="#" class="aalink">The European</a> languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe
+uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators.
+        <div class="my-4">
+            <button type="button" class="btn btn-primary">Primary</button>
+            <button type="button" class="btn btn-secondary">Secondary</button>
+            <button type="button" class="btn btn-success">Success</button>
+            <button type="button" class="btn btn-danger">Danger</button>
+            <button type="button" class="btn btn-warning">Warning</button>
+            <button type="button" class="btn btn-info">Info</button>
+
+            <button type="button" class="btn btn-link">Link</button>
+        </div>
+
+        <div class="my-4">
+            <button type="button" class="btn btn-outline-primary">Primary</button>
+            <button type="button" class="btn btn-outline-secondary">Secondary</button>
+            <button type="button" class="btn btn-outline-success">Success</button>
+            <button type="button" class="btn btn-outline-danger">Danger</button>
+            <button type="button" class="btn btn-outline-warning">Warning</button>
+            <button type="button" class="btn btn-outline-info">Info</button>
+
+            <button type="button" class="btn btn-outline-link">Link</button>
+        </div>
+    </div>
+    <div class="col-12 mt-3">
+        {{>local_uitest/cssoutput}}
+    </div>
+</div>
+
+{{#js}}
+require(
+[
+    'local_uitest/checkcontrast'
+],
+function(
+    checkContrast
+) {
+    checkContrast.init();
+});
+{{/js}}

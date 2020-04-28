@@ -1,33 +1,37 @@
 /* eslint-disable */
+
 define(
 [
-    'jquery',
-    'theme_boost/tooltip'
+    'jquery'
 ],
 function(
-    $,
-    bstt
+    $
 ) {
 
-    var contrastErrors = {
+    var contrastResults = {
         errors: [],
-        warnings: []
+        warnings: [],
+        success: []
     };
     var contrast = {
         // Parse rgb(r, g, b) and rgba(r, g, b, a) strings into an array.
         // Adapted from https://github.com/gka/chroma.js
         parseRgb: function (css) {
             var i, m, rgb, _i, _j;
-            if (m = css.match(/rgb\(\s*(\-?\d+),\s*(\-?\d+)\s*,\s*(\-?\d+)\s*\)/)) {
+            m = css.match(/rgb\(\s*(\-?\d+),\s*(\-?\d+)\s*,\s*(\-?\d+)\s*\)/);
+            if (m) {
                 rgb = m.slice(1, 4);
                 for (i = _i = 0; _i <= 2; i = ++_i) {
                     rgb[i] = +rgb[i];
                 }
                 rgb[3] = 1;
-            } else if (m = css.match(/rgba\(\s*(\-?\d+),\s*(\-?\d+)\s*,\s*(\-?\d+)\s*,\s*([01]|[01]?\.\d+)\)/)) {
-                rgb = m.slice(1, 5);
-                for (i = _j = 0; _j <= 3; i = ++_j) {
-                    rgb[i] = +rgb[i];
+            } else {
+                m = css.match(/rgba\(\s*(\-?\d+),\s*(\-?\d+)\s*,\s*(\-?\d+)\s*,\s*([01]|[01]?\.\d+)\)/);
+                if (m) {
+                    rgb = m.slice(1, 5);
+                    for (i = _j = 0; _j <= 3; i = ++_j) {
+                        rgb[i] = +rgb[i];
+                    }
                 }
             }
             return rgb;
@@ -69,8 +73,8 @@ function(
         isVisible: function (el) {
             return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
         },
-        check: function () {
-            var elements = document.getElementById('check-wcag').querySelectorAll('*');
+        check: function (checkElement) {
+            var elements = checkElement.querySelectorAll('*');
             for (var i = 0; i < elements.length; i++) {
                 (function (n) {
                     var elem = elements[n];
@@ -95,21 +99,22 @@ function(
                             if(ratio < 3) {
                                 failed="true";
                                 fontSizeString = "svg fill";
-                                ratingString = "fail"
+                                ratingString = "fail";
                             }
                         } else if (text.length) {
                             // does element have a background image - needs to be manually reviewed
                             if (background === "image") {
                                 ratingString = "Needs manual review";
                                 fontSizeString = "N/A";
+                                var ratio = 'none';
                                 failed = true;
                             } else {
                                 var ratio = Math.round(contrast.contrastRatio(color, background) * 100) / 100,
                                     ratioText = ratio + ':1',
-                                    fontSize = parseInt(style.fontSize), 
+                                    fontSize = parseInt(style.fontSize),
                                     fontWeight = style.fontWeight;
                                 if (fontSize >= 18 || fontSize >= 14 && fontWeight >= 700) {
-                                    fontSizeString = 'large scale text'
+                                    fontSizeString = 'large scale text';
                                     if (ratio < 3) {
                                         ratingString = 'fail';
                                         failed = true;
@@ -118,7 +123,7 @@ function(
                                         failed = false;
                                     }
                                 } else {
-                                    fontSizeString = 'normal body text'
+                                    fontSizeString = 'normal body text';
                                     if (ratio < 4.5) {
                                         ratingString = 'fail';
                                         failed = true;
@@ -128,6 +133,8 @@ function(
                                     }
                                 }
                             }
+                        } else {
+                            return '';
                         }
 
                         // highlight the element in the DOM and log the element, contrast ratio and failure
@@ -139,57 +146,60 @@ function(
                                 ratio: ratioText,
                                 detail: fontSizeString,
                                 status: ratingString
-                            }
+                            };
                             if(ratingString === "fail"){
-                                contrastErrors.errors.push(error);
+                                contrastResults.errors.push(error);
                             } else if (ratingString === "Needs manual review"){
-                                contrastErrors.warnings.push(error);
+                                contrastResults.warnings.push(error);
                             }
+                        } else {
+                            var success = {
+                                name: elem,
+                                ratio: ratioText,
+                                detail: fontSizeString,
+                                status: ratingString
+                            };
+                            contrastResults.success.push(success);
                         }
                     //}
                 })(i);
             }
-            return contrastErrors;
+            return contrastResults;
         }
-    }
+    };
 
-        /**
-     * Initialise all of the modules for the overview block.
+    /**
+     * Run the contrast checker on selected page elements
      *
      * @param {object} root The root element for the overview block.
      */
-    var init = function(root) {
-        container = $('#check-wcag');
-        container.on('click', function () {
-            contrast.check();
-            $('div.errors').html('');
-            $('div.warnings').html('');
-            $('div.errors').append('<h3 class="error-highlight">Errors</h3>');
-            $('div.warnings').append('<h3 class="warning-highlight">Warnings</h3>')
-            $('div.errors, div.warnings').append('<ol></ol>');
-
-            for (var i = 0; i < contrastErrors.errors.length; i++) {
-                var item = contrastErrors.errors[i];
-                $(item.name).addClass('error-highlight').append(' (' + i + ')');
-                $('div.errors ol').append(
-                    '<li>' + item.name.innerHTML + ': ' + item.ratio + '</li>'
-                );
+    var init = function() {
+        $('[data-action="contrastcheck"]').each(function() {
+            var element = $(this)[0];
+            contrast.check(element);
+            for (var i = 0; i < contrastResults.errors.length; i++) {
+                var item = contrastResults.errors[i];
+                $(item.name).append('<span class="badge badge-danger border border-dark m-1">' + item.ratio + '</span>');
             }
 
-            for (var i = 0; i < contrastErrors.warnings.length; i++) {
-                var item = contrastErrors.warnings[i];
-                $(item.name).addClass('error-highlight').append(' (' + i + ')');
-                $('div.warnings ol').append(
-                    '<li>' + item.name.innerHTML + ': ' + item.ratio + '</li>'
-                );
+            for (var i = 0; i < contrastResults.warnings.length; i++) {
+                var item = contrastResults.warnings[i];
+                $(item.name).append('<span class="badge badge-warning border border-dark m-1">' + item.ratio + '</span>');
             }
 
+            for (var i = 0; i < contrastResults.success.length; i++) {
+                var item = contrastResults.success[i];
+                $(item.name).append('<span class="badge badge-success border border-dark m-1">' + item.ratio + '</span>');
+            }
+            contrastResults.errors = [];
+            contrastResults.warnings = [];
+            contrastResults.success = [];
         });
-        $('.hastooltip').tooltip({ boundary: 'window' });
-    }
+    };
 
     return {
         init: init
     };
 });
+
 /* eslint-enable */

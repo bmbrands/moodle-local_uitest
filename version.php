@@ -15,13 +15,13 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    local_sasstest
+ * @package    local_uites
  * @copyright  Bas Brands <bas@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2019061700;
+$plugin->version   = 2020042700;
 $plugin->requires  = 2018061700;
 $plugin->component = 'local_uitest';

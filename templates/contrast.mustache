@@ -1,0 +1,76 @@
+
+{{>local_uitest/intro}}
+
+<hr>
+
+<div data-action="contrastcheck" id="yui_3_17_2_1_1582186555068_25">
+
+    <div class="row mt-2 mb">
+        <div class="col-12">
+            <button type="button" class="btn btn-primary mr-2">
+                <i class="icon fa fa-lightbulb-o fa-fw"></i>
+                btn-primary
+            </button>
+
+            <button type="button" class="btn btn-secondary mr-2">
+                <i class="icon fa fa-lightbulb-o fa-fw"></i>
+                btn-primary
+            </button>
+
+            <button type="button" class="btn btn-success mr-2">
+                <i class="icon fa fa-lightbulb-o fa-fw"></i>
+                btn-primary
+            </button>
+
+            <button type="button" class="btn btn-warning mr-2">
+                <i class="icon fa fa-lightbulb-o fa-fw"></i>
+                btn-primary
+            </button>
+
+            <button type="button" class="btn btn-danger mr-2">
+                <i class="icon fa fa-lightbulb-o fa-fw"></i>
+                btn-primary
+            </button>
+        </div>
+
+        <div class="col-12 mt-3">
+            <button type="button" class="btn btn-outline-primary mr-2">
+                <i class="icon fa fa-lightbulb-o fa-fw"></i>
+                btn-primary
+            </button>
+
+            <button type="button" class="btn btn-outline-secondary mr-2">
+                <i class="icon fa fa-lightbulb-o fa-fw"></i>
+                btn-primary
+            </button>
+
+            <button type="button" class="btn btn-outline-success mr-2">
+                <i class="icon fa fa-lightbulb-o fa-fw"></i>
+                btn-primary
+            </button>
+
+            <button type="button" class="btn btn-outline-warning mr-2">
+                <i class="icon fa fa-lightbulb-o fa-fw"></i>
+                btn-primary
+            </button>
+
+            <button type="button" class="btn btn-outline-danger mr-2">
+                <i class="icon fa fa-lightbulb-o fa-fw"></i>
+                btn-primary
+            </button>
+        </div>
+    </div>
+
+</div>
+
+{{#js}}
+require(
+[
+    'local_uitest/checkcontrast'
+],
+function(
+    checkContrast
+) {
+    checkContrast.init();
+});
+{{/js}}
