@@ -1,0 +1,55 @@
+
+{{>local_uitest/intro}}
+
+<hr>
+
+<!-- Make sure the CSS you create is injected in this template !-->
+{{>local_uitest/injectcss}}
+
+<div class="row">
+    <div id="check-wcag" class="col-md-4">
+        <button class="btn btn-primary rounded mb-2"> Click to TEST WCAG </button>
+        <h3>YOUR CUSTOM TEMPLATE HERE</h3>
+        <div class="d-flex align-items-center"><hr class="m-0 w-100"><div class="mx-2">OR</div><hr class="m-0 w-100"></div>
+
+        <p>If you want to add wcag checking make sure the parent container uses div id="wcag-check"</p>
+    </div>
+    <div class="col-md-4">
+        <div class="tool-wp-table-tree {{treeclass}}">
+
+            <div class="p-5 border-dark">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.,</div>
+        </div>
+        <button class="btn btn-success" data-action="showloader">Show Loader</button>
+        <button class="btn btn-warning" data-action="hideloader">Hide Loader</button>
+    </div>
+    <div class="col-md-4">
+        {{>local_uitest/cssoutput}}
+    </div>
+</div>
+{{#js}}
+require(
+[
+    'jquery',
+    'core/pubsub',
+    'local_uitest/processing'
+],
+function(
+    $,
+    PubSub,
+    Processing
+) {
+
+    Processing.init('.tool-wp-table-tree');
+    var loaderBtn = $('[data-action="showloader"]');
+    var hideBtn = $('[data-action="hideloader"]');
+
+    loaderBtn.on('click', function() {
+        PubSub.publish('wp-loader-loading');
+    });
+
+    hideBtn.on('click', function() {
+        PubSub.publish('wp-loader-stoploading');
+    });
+
+});
+{{/js}}

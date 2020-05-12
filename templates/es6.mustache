@@ -1,0 +1,36 @@
+
+{{>local_uitest/intro}}
+
+<hr>
+
+<!-- Make sure the CSS you create is injected in this template !-->
+{{>local_uitest/injectcss}}
+
+<div>
+     <input type="text"
+            data-action="dev-training"
+            class="form-control form-control-lg"
+            placeholder="Moodle JS dev training"
+     >
+     <div data-region="search-results"></div>
+ </div>
+ {{#js}}
+require(
+[
+    'local_uitest/es6'
+],
+function(
+    es6
+) {
+    const userArray = [
+         {id: 10, nickName: 'flightless bird'},
+         {id: 11, nickName: 'bald eagle'},
+         {id: 12, nickName: 'bagman'},
+         {id: 13, nickName: 'paggers'},
+         {id: 14, nickName: 'Gordo'},
+         {id: 15, nickName: 'Montreal Mullet'}
+     ];
+    es6.search(userArray);
+
+});
+{{/js}}
